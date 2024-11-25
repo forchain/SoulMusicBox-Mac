@@ -1,12 +1,12 @@
 {
     "qqMusic": {
         "nextButton": {
-            "x": 585,
-            "y": 675
+            "x": 570,
+            "y": 610
         },
         "playPauseButton": {
-            "x": 520,
-            "y": 675
+            "x": 510,
+            "y": 610
         },
         "searchBox": {
             "x": 400,

@@ -5,7 +5,7 @@ class SoulActions {
         var lastMessage = previousMessage
         
         // Check for new message every second
-        for _ in 0..<60 { // Set a maximum retry limit
+        for _ in 0..<9 { // Set a maximum retry limit
             let currentMessage = findLastSoulerMessage(app: app)
             
             if let current = currentMessage, current != lastMessage {

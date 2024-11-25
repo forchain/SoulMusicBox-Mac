@@ -5,7 +5,14 @@ import ApplicationServices
 class QQMusicActions {
     private static let config = UIConfig.load().qqMusic
     
+    /// Activate QQ Music window and bring it to front
+    private static func activateQQMusic(app: XCUIApplication) {
+        app.activate()
+        Thread.sleep(forTimeInterval: 0.5)  // Wait for window activation
+    }
+    
     static func clickNextButton(app: XCUIApplication) {
+        activateQQMusic(app: app)
         let window = app.windows.firstMatch
         let coordinate = window.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
                               .withOffset(CGVector(dx: config.nextButton.x, dy: config.nextButton.y))
@@ -15,6 +22,7 @@ class QQMusicActions {
     }
 
     static func clickPlayPauseButton(app: XCUIApplication) {
+        activateQQMusic(app: app)
         let window = app.windows.firstMatch
         let coordinate = window.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
                               .withOffset(CGVector(dx: config.playPauseButton.x, dy: config.playPauseButton.y))
@@ -24,6 +32,7 @@ class QQMusicActions {
     }
 
     static func openSearch(app: XCUIApplication)  {
+        activateQQMusic(app: app)
         let window = app.windows.firstMatch
         
         TestUtilities.clickAt(window: window, x: config.searchBox.x, y: config.searchBox.y)
@@ -35,6 +44,7 @@ class QQMusicActions {
     }
 
     static func addToPlayQueue(app: XCUIApplication) {
+        activateQQMusic(app: app)
         let window = app.windows.firstMatch
         openSearch(app: app)
 
@@ -52,6 +62,7 @@ class QQMusicActions {
     }
 
     static func searchAndPlayFromClipboard(app: XCUIApplication) {
+        activateQQMusic(app: app)
         let window = app.windows.firstMatch
         openSearch(app: app)
         
