@@ -116,4 +116,5 @@ final class SoulMusicBoxUITestsLaunchTests: XCTestCase {
         let app = XCUIApplication(bundleIdentifier: "com.tencent.QQMusicMac")
         QQMusicActions.clickPlayPauseButton(app: app)
     }
+
 }
