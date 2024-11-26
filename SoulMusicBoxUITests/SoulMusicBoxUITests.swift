@@ -25,11 +25,11 @@ final class SoulMusicBoxUITests: XCTestCase {
     @MainActor
     func testMain() throws {
         let app = XCUIApplication(bundleIdentifier: "com.soulapp.cn")
-        var lastMessage: String? = nil
+        var lastMessageCount: Int = 0
         
         // Continuous monitoring
         while true {
-            lastMessage = SoulActions.processNewSoulMessage(app: app, previousMessage: lastMessage)
+            lastMessageCount = SoulActions.processNewSoulMessage(app: app, previousMessageCount: lastMessageCount)
             Thread.sleep(forTimeInterval: 9)
         }
     }

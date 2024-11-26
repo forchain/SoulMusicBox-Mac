@@ -1,31 +1,35 @@
 import XCTest
 
 class SoulActions {
-    static func processNewSoulMessage(app: XCUIApplication, previousMessage: String?) -> String? {
+    static func processNewSoulMessage(app: XCUIApplication, previousMessageCount: Int) ->  Int {
   
-        let currentMessage = findLastSoulerMessage(app: app)
+        let (currentMessage, currentCount) = findLastSoulerMessage(app: app)
         
-        if let current = currentMessage, current != previousMessage {
+        if currentCount > previousMessageCount {
             // Found new message
-            if let command = extractAndProcessCommand(current) {
+            if let command = extractAndProcessCommand(currentMessage) {
                 executeCommand(command)
             }
-            return current
+            return currentCount
         }
         
-        return previousMessage
+        return previousMessageCount
     }
     
-    private static func findLastSoulerMessage(app: XCUIApplication) -> String? {
+    private static func findLastSoulerMessage(app: XCUIApplication) -> (String, Int) {
         if !app.exists {
             app.launch()
             Thread.sleep(forTimeInterval: 5)
         }
         
-        let pattern = "souler.*说：.*"
+        let pattern = "souler.+说：:.+"
         let predicate = NSPredicate(format: "label MATCHES %@", pattern)
         let matchingCells = app.cells.matching(predicate)
-        return matchingCells.count > 0 ? matchingCells.element(boundBy: matchingCells.count - 1).label : nil
+        let count = matchingCells.count
+        if count > 0 {
+            return (matchingCells.element(boundBy: count - 1).label, count)
+        }
+        return ("", 0)
     }
     
     private static func extractAndProcessCommand(_ message: String) -> Command? {
