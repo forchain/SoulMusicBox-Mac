@@ -30,7 +30,7 @@ final class SoulMusicBoxUITests: XCTestCase {
         // Continuous monitoring
         while true {
             lastMessage = SoulActions.processNewSoulMessage(app: app, previousMessage: lastMessage)
-            Thread.sleep(forTimeInterval: 1)
+            Thread.sleep(forTimeInterval: 9)
         }
     }
 

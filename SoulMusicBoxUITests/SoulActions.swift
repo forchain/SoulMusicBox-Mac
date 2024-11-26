@@ -2,24 +2,18 @@ import XCTest
 
 class SoulActions {
     static func processNewSoulMessage(app: XCUIApplication, previousMessage: String?) -> String? {
-        var lastMessage = previousMessage
+  
+        let currentMessage = findLastSoulerMessage(app: app)
         
-        // Check for new message every second
-        for _ in 0..<9 { // Set a maximum retry limit
-            let currentMessage = findLastSoulerMessage(app: app)
-            
-            if let current = currentMessage, current != lastMessage {
-                // Found new message
-                if let command = extractAndProcessCommand(current) {
-                    executeCommand(command)
-                }
-                return current
+        if let current = currentMessage, current != previousMessage {
+            // Found new message
+            if let command = extractAndProcessCommand(current) {
+                executeCommand(command)
             }
-            
-            Thread.sleep(forTimeInterval: 1)
+            return current
         }
         
-        return nil
+        return previousMessage
     }
     
     private static func findLastSoulerMessage(app: XCUIApplication) -> String? {
